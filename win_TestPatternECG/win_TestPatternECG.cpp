@@ -13,7 +13,7 @@ const static int	SamplingRate = 48000;
 const static double SamplingRateF = 48000.0;
 
 const static double dataRage = 1000.0 / 450.0;
-const static int serialno = 1234567;
+const static int serialno = 151173;
 
 static double currentTime = 0.0;
 __int16 *pcm;
@@ -112,6 +112,16 @@ void genPCM(double freq, double duration)
     }
 }
 
+void genPCMT(double freq, double duration)
+{
+	genPCM(freq, duration);
+#if 0
+	int len = duration/dataRage;
+	int f = (int)freq;
+	while (len-- > 0)
+		std::cout << f << "\n"; 
+#endif
+}
 void genHedders( void )
 {
     int i;
@@ -157,68 +167,68 @@ void pattern1( void )
 
 	// Data
     for (i=0; i<=1000; i+=2) {
-        genPCM(1200+i, dataRage);	// スイープアップ
+        genPCMT(1200+i, dataRage);	// スイープアップ
     }
     for (i=1000; i>0; i-=2) {
-        genPCM(1200+i, dataRage);	// スイープダウン
+        genPCMT(1200+i, dataRage);	// スイープダウン
     }
 
 	// サイン波＋減衰    
     for (i=0; i<2300; i++) {
         freq = 1700.0 + sin(2.0*M_PI*8*i/2300.0) * 500.0*(1.0 - i/2300.0);
-        genPCM(freq, dataRage);
+        genPCMT(freq, dataRage);
     }
 
 	// UP/Down 100%
     for (i=0; i<50; i++) {
-        genPCM(1700-500, dataRage *2);
-        genPCM(1700+500, dataRage *2);
+        genPCMT(1700-500, dataRage *2);
+        genPCMT(1700+500, dataRage *2);
     }
 	// UP/Down 80%
     for (i=0; i<50; i++) {
-        genPCM(1700-400, dataRage *2);
-        genPCM(1700+400, dataRage *2);
+        genPCMT(1700-400, dataRage *2);
+        genPCMT(1700+400, dataRage *2);
     }
 	// UP/Down 60%
 	for (i=0; i<50; i++) {
-        genPCM(1700-300, dataRage *2);
-        genPCM(1700+300, dataRage *2);
+        genPCMT(1700-300, dataRage *2);
+        genPCMT(1700+300, dataRage *2);
     }
 	// UP/Down 40%
     for (i=0; i<50; i++) {
-        genPCM(1700-200, dataRage *2);
-        genPCM(1700+200, dataRage *2);
+        genPCMT(1700-200, dataRage *2);
+        genPCMT(1700+200, dataRage *2);
     }
 	// UP/Down 20%
     for (i=0; i<50; i++) {
-        genPCM(1700-100, dataRage *2);
-        genPCM(1700+100, dataRage *2);
+        genPCMT(1700-100, dataRage *2);
+        genPCMT(1700+100, dataRage *2);
     }
 	// UP/Down 0%
     for (i=0; i<50; i++) {
-        genPCM(1700, dataRage);
+        genPCMT(1700, dataRage);
     }
     
     for (i=0; i<=10; i++) {
-        genPCM(1200+i*100, dataRage *20);
+        genPCMT(1200+i*100, dataRage *20);
     }
     for (i=0; i<=10; i++) {
-        genPCM(1200+i*100, dataRage *20);
+        genPCMT(1200+i*100, dataRage *20);
     }
 
     
 	for (i=1300; i<=2100 ; i+=100) {
 		for (int j=0; j<40; j++) {
-			genPCM(i+100, dataRage *2);
-			genPCM(i-100, dataRage *2);
+			genPCMT(i+100, dataRage *2);
+			genPCMT(i-100, dataRage *2);
 		}
 	}
 
-	genPCM(1400, dataRage *150);
-	genPCM(1600, dataRage *150);
-	genPCM(1800, dataRage *150);
-	genPCM(2000, dataRage *150);
-	genPCM(1700, dataRage *400);
+	genPCMT(1400, dataRage *150);
+	genPCMT(1600, dataRage *150);
+	genPCMT(1800, dataRage *150);
+	genPCMT(2000, dataRage *150);
+	genPCMT(1700, dataRage *400);
 
 }
 
