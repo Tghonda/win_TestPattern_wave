@@ -13,7 +13,7 @@ const static int	SamplingRate = 48000;
 const static double SamplingRateF = 48000.0;
 
 const static double dataRage = 1000.0 / 450.0;
-const static int serialno = 151173;
+const static int serialno = 53327;
 
 static double currentTime = 0.0;
 __int16 *pcm;
@@ -25,9 +25,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	static int pcmSamples = SamplingRate*60;
 	pcm = (__int16 *)calloc(pcmSamples, sizeof(__int16));
 	void genPattern1( void );
+	void genPattern2( void );
 	void saveWave(__int16 *pcm, int samples);
 
-	genPattern1();
+	genPattern2();
 	saveWave(pcm, pcmIdx);
 	return 0;
 }
@@ -237,4 +238,36 @@ void genPattern1( void )
 {
     genHedders();
 	pattern1();
+}
+
+// Dynamic rang.
+void pattern2( void )
+{
+	int i;
+	double freq;
+
+	// Data
+    for (i=0; i<=1100; i+=2) {
+        genPCM(1150+i, dataRage*4);	// スイープアップ
+    }
+    for (i=1100; i>0; i-=2) {
+        genPCM(1150+i, dataRage*4);	// スイープダウン
+    }
+
+	// 
+	genPCM(1700, dataRage*350);
+	genPCM(1950, dataRage*350);
+	genPCM(1450, dataRage*350);
+	genPCM(2200, dataRage*350);
+	genPCM(1200, dataRage*350);
+	genPCM(2250, dataRage*350);
+	genPCM(1150, dataRage*350);
+	genPCM(1700, dataRage*350);
+}
+
+
+void genPattern2( void )
+{
+    genHedders();
+	pattern2();
 }
